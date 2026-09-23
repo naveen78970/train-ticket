@@ -1,16 +1,16 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:us-east-1:861358180398:task-definition/ecs-cicd-task:1",
+    "taskDefinitionArn": "arn:aws:ecs:us-east-1:861358180398:task-definition/naveentask:1",
     "containerDefinitions": [
         {
-            "name": "ecs-cicd-app",
-            "image": "861358180398.dkr.ecr.us-east-1.amazonaws.com/naveen-my-app-repo@sha256:e14401bbb16a2a721eb87070ba4f54c92efba943857c6c422c232e5fad41bdc1",
+            "name": "naveencontainer",
+            "image": "861358180398.dkr.ecr.us-east-1.amazonaws.com/naveen-my-app-repo@sha256:97ef8e305df7ccd94d332c33c64d8470869817aef6d2f1c5f5ce9b5a7d970dae",
             "cpu": 0,
             "portMappings": [
                 {
-                    "containerPort": 3000,
-                    "hostPort": 3000,
+                    "containerPort": 80,
+                    "hostPort": 80,
                     "protocol": "tcp",
-                    "name": "ecs-cicd-app-3000-tcp",
+                    "name": "naveencontainer-80-tcp",
                     "appProtocol": "http"
                 }
             ],
@@ -23,7 +23,7 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/ecs-cicd-task",
+                    "awslogs-group": "/ecs/naveentask",
                     "awslogs-create-group": "true",
                     "awslogs-region": "us-east-1",
                     "awslogs-stream-prefix": "ecs"
@@ -33,7 +33,8 @@
             "systemControls": []
         }
     ],
-    "family": "ecs-cicd-task",
+    "family": "naveentask",
+    "taskRoleArn": "arn:aws:iam::861358180398:role/ECS-role-auto",
     "executionRoleArn": "arn:aws:iam::861358180398:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "revision": 1,
@@ -54,6 +55,9 @@
         },
         {
             "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.task-iam-role"
         },
         {
             "name": "ecs.capability.execution-role-ecr-pull"
@@ -79,11 +83,12 @@
         "operatingSystemFamily": "LINUX"
     },
     "requiresCompatibilities": [
-        "FARGATE"
+        "EC2",
+        "MANAGED_INSTANCES"
     ],
-    "cpu": "256",
-    "memory": "512",
-    "registeredAt": "2026-09-23T07:16:43.302Z",
+    "cpu": "1024",
+    "memory": "3072",
+    "registeredAt": "2026-09-23T10:00:38.523Z",
     "registeredBy": "arn:aws:iam::861358180398:root",
     "enableFaultInjection": false,
     "tags": []
